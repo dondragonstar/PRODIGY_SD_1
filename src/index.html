@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Temperature Converter</h1>
+    <p class="subtitle">Convert between Celsius, Fahrenheit &amp; Kelvin</p>
+
+    <div class="input-group">
+      <label for="temp-value">Temperature Value</label>
+      <input type="number" id="temp-value" step="any" placeholder="e.g. 25">
+    </div>
+
+    <div class="input-group">
+      <label>Original Unit</label>
+      <div class="radio-group">
+        <label class="radio-label">
+          <input type="radio" name="unit" value="celsius" checked> Celsius (°C)
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="unit" value="fahrenheit"> Fahrenheit (°F)
+        </label>
+        <label class="radio-label">
+          <input type="radio" name="unit" value="kelvin"> Kelvin (K)
+        </label>
+      </div>
+    </div>
+
+    <button id="convert-btn">Convert</button>
+
+    <div class="results" id="results">
+      <div class="result-card">
+        <span class="result-label">Celsius</span>
+        <span class="result-value" id="result-celsius">—</span>
+      </div>
+      <div class="result-card">
+        <span class="result-label">Fahrenheit</span>
+        <span class="result-value" id="result-fahrenheit">—</span>
+      </div>
+      <div class="result-card">
+        <span class="result-label">Kelvin</span>
+        <span class="result-value" id="result-kelvin">—</span>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
