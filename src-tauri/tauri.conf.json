@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "Temperature Converter",
-        "width": 520,
-        "height": 620,
+"width": 500,
+"height": 600,
         "resizable": true,
         "fullscreen": false
       }

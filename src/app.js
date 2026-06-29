@@ -14,11 +14,6 @@ function fromCelsius(value, to) {
   }
 }
 
-function convert(value, from, to) {
-  const celsius = toCelsius(value, from);
-  return fromCelsius(celsius, to);
-}
-
 function tempColor(celsius) {
   if (celsius <= -10) return 'var(--cold)';
   if (celsius <= 5) return 'var(--cool)';
@@ -50,51 +45,30 @@ unitButtons.forEach(btn => {
 function doConvert() {
   const raw = valueInput.value.trim();
   if (raw === '' || isNaN(parseFloat(raw))) {
-    resultCards.forEach(c => c.classList.remove('visible'));
+    results.celsius.textContent = '—';
+    results.fahrenheit.textContent = '—';
+    results.kelvin.textContent = '—';
+    resultCards.forEach(c => c.querySelector('.result-accent').style.background = 'var(--neutral)');
     return;
   }
 
   const value = parseFloat(raw);
 
-  const celsius = currentUnit === 'celsius' ? value : convert(value, currentUnit, 'celsius');
-
-  const converted = {
-    celsius: currentUnit === 'celsius' ? value : convert(value, currentUnit, 'celsius'),
-    fahrenheit: currentUnit === 'fahrenheit' ? value : convert(value, currentUnit, 'fahrenheit'),
-    kelvin: currentUnit === 'kelvin' ? value : convert(value, currentUnit, 'kelvin'),
-  };
+  const celsius = currentUnit === 'celsius' ? value : toCelsius(value, currentUnit);
+  const fahrenheit = currentUnit === 'fahrenheit' ? value : fromCelsius(celsius, 'fahrenheit');
+  const kelvin = currentUnit === 'kelvin' ? value : fromCelsius(celsius, 'kelvin');
 
   const color = tempColor(celsius);
 
-  resultCards.forEach((card, i) => {
-    const unit = card.dataset.unit;
-    const accent = card.querySelector('.result-accent');
-    accent.style.background = color;
-
-    if (i === 0) {
-      card.style.setProperty('--card-delay', '0ms');
-    } else if (i === 1) {
-      card.style.setProperty('--card-delay', '80ms');
-    } else {
-      card.style.setProperty('--card-delay', '160ms');
-    }
-
-    requestAnimationFrame(() => {
-      card.classList.add('visible');
-    });
+  resultCards.forEach(card => {
+    card.querySelector('.result-accent').style.background = color;
   });
 
-  results.celsius.textContent = `${converted.celsius.toFixed(2)} °C`;
-  results.fahrenheit.textContent = `${converted.fahrenheit.toFixed(2)} °F`;
-  results.kelvin.textContent = `${converted.kelvin.toFixed(2)} K`;
+  results.celsius.textContent = `${celsius.toFixed(2)} °C`;
+  results.fahrenheit.textContent = `${fahrenheit.toFixed(2)} °F`;
+  results.kelvin.textContent = `${kelvin.toFixed(2)} K`;
 }
 
 valueInput.addEventListener('input', doConvert);
 
-valueInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    valueInput.blur();
-  }
-});
-
-resultCards.forEach(c => c.classList.add('visible'));
+resultCards.forEach(c => c.querySelector('.result-accent').style.background = 'var(--neutral)');
