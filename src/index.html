@@ -8,43 +8,52 @@
 </head>
 <body>
   <div class="container">
-    <h1>Temperature Converter</h1>
-    <p class="subtitle">Convert between Celsius, Fahrenheit &amp; Kelvin</p>
-
-    <div class="input-group">
-      <label for="temp-value">Temperature Value</label>
-      <input type="number" id="temp-value" step="any" placeholder="e.g. 25">
+    <div class="header">
+      <div class="icon">🌡️</div>
+      <h1>Temperature<br>Converter</h1>
+      <p class="subtitle">Celsius · Fahrenheit · Kelvin</p>
     </div>
 
-    <div class="input-group">
-      <label>Original Unit</label>
-      <div class="radio-group">
-        <label class="radio-label">
-          <input type="radio" name="unit" value="celsius" checked> Celsius (°C)
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="unit" value="fahrenheit"> Fahrenheit (°F)
-        </label>
-        <label class="radio-label">
-          <input type="radio" name="unit" value="kelvin"> Kelvin (K)
-        </label>
+    <div class="input-section">
+      <div class="input-group">
+        <label for="temp-value">Enter value</label>
+        <input type="number" id="temp-value" step="any" placeholder="e.g. 25" autofocus>
+      </div>
+
+      <div class="input-group">
+        <label>From</label>
+        <div class="segmented-control" id="unit-selector">
+          <button class="segmented-option active" data-unit="celsius">°C</button>
+          <button class="segmented-option" data-unit="fahrenheit">°F</button>
+          <button class="segmented-option" data-unit="kelvin">K</button>
+        </div>
       </div>
     </div>
-
-    <button id="convert-btn">Convert</button>
 
     <div class="results" id="results">
-      <div class="result-card">
-        <span class="result-label">Celsius</span>
-        <span class="result-value" id="result-celsius">—</span>
+      <div class="result-card" data-unit="celsius">
+        <div class="result-accent"></div>
+        <div class="result-body">
+          <span class="result-label">Celsius</span>
+          <span class="result-symbol">°C</span>
+          <span class="result-value" id="result-celsius">—</span>
+        </div>
       </div>
-      <div class="result-card">
-        <span class="result-label">Fahrenheit</span>
-        <span class="result-value" id="result-fahrenheit">—</span>
+      <div class="result-card" data-unit="fahrenheit">
+        <div class="result-accent"></div>
+        <div class="result-body">
+          <span class="result-label">Fahrenheit</span>
+          <span class="result-symbol">°F</span>
+          <span class="result-value" id="result-fahrenheit">—</span>
+        </div>
       </div>
-      <div class="result-card">
-        <span class="result-label">Kelvin</span>
-        <span class="result-value" id="result-kelvin">—</span>
+      <div class="result-card" data-unit="kelvin">
+        <div class="result-accent"></div>
+        <div class="result-body">
+          <span class="result-label">Kelvin</span>
+          <span class="result-symbol">K</span>
+          <span class="result-value" id="result-kelvin">—</span>
+        </div>
       </div>
     </div>
   </div>

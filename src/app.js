@@ -19,26 +19,82 @@ function convert(value, from, to) {
   return fromCelsius(celsius, to);
 }
 
-document.getElementById('convert-btn').addEventListener('click', () => {
-  const value = parseFloat(document.getElementById('temp-value').value);
-  const from = document.querySelector('input[name="unit"]:checked').value;
+function tempColor(celsius) {
+  if (celsius <= -10) return 'var(--cold)';
+  if (celsius <= 5) return 'var(--cool)';
+  if (celsius <= 20) return 'var(--neutral)';
+  if (celsius <= 30) return 'var(--warm)';
+  return 'var(--hot)';
+}
 
-  if (isNaN(value)) {
-    alert('Please enter a valid temperature value.');
+const valueInput = document.getElementById('temp-value');
+const unitButtons = document.querySelectorAll('.segmented-option');
+const resultCards = document.querySelectorAll('.result-card');
+const results = {
+  celsius: document.getElementById('result-celsius'),
+  fahrenheit: document.getElementById('result-fahrenheit'),
+  kelvin: document.getElementById('result-kelvin'),
+};
+
+let currentUnit = 'celsius';
+
+unitButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    unitButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentUnit = btn.dataset.unit;
+    doConvert();
+  });
+});
+
+function doConvert() {
+  const raw = valueInput.value.trim();
+  if (raw === '' || isNaN(parseFloat(raw))) {
+    resultCards.forEach(c => c.classList.remove('visible'));
     return;
   }
 
-  const celsius = from === 'celsius' ? value : convert(value, from, 'celsius');
-  const fahrenheit = from === 'fahrenheit' ? value : convert(value, from, 'fahrenheit');
-  const kelvin = from === 'kelvin' ? value : convert(value, from, 'kelvin');
+  const value = parseFloat(raw);
 
-  document.getElementById('result-celsius').textContent = `${celsius.toFixed(2)} °C`;
-  document.getElementById('result-fahrenheit').textContent = `${fahrenheit.toFixed(2)} °F`;
-  document.getElementById('result-kelvin').textContent = `${kelvin.toFixed(2)} K`;
-});
+  const celsius = currentUnit === 'celsius' ? value : convert(value, currentUnit, 'celsius');
 
-document.getElementById('temp-value').addEventListener('keydown', (e) => {
+  const converted = {
+    celsius: currentUnit === 'celsius' ? value : convert(value, currentUnit, 'celsius'),
+    fahrenheit: currentUnit === 'fahrenheit' ? value : convert(value, currentUnit, 'fahrenheit'),
+    kelvin: currentUnit === 'kelvin' ? value : convert(value, currentUnit, 'kelvin'),
+  };
+
+  const color = tempColor(celsius);
+
+  resultCards.forEach((card, i) => {
+    const unit = card.dataset.unit;
+    const accent = card.querySelector('.result-accent');
+    accent.style.background = color;
+
+    if (i === 0) {
+      card.style.setProperty('--card-delay', '0ms');
+    } else if (i === 1) {
+      card.style.setProperty('--card-delay', '80ms');
+    } else {
+      card.style.setProperty('--card-delay', '160ms');
+    }
+
+    requestAnimationFrame(() => {
+      card.classList.add('visible');
+    });
+  });
+
+  results.celsius.textContent = `${converted.celsius.toFixed(2)} °C`;
+  results.fahrenheit.textContent = `${converted.fahrenheit.toFixed(2)} °F`;
+  results.kelvin.textContent = `${converted.kelvin.toFixed(2)} K`;
+}
+
+valueInput.addEventListener('input', doConvert);
+
+valueInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
-    document.getElementById('convert-btn').click();
+    valueInput.blur();
   }
 });
+
+resultCards.forEach(c => c.classList.add('visible'));
