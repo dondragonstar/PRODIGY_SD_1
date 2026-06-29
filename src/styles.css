@@ -30,72 +30,87 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  user-select: none;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   background: var(--bg);
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 16px;
+  overflow: hidden;
 }
 
 .container {
   background: var(--surface);
   border-radius: var(--radius);
-  padding: 36px 32px;
+  padding: 28px 24px;
   width: 100%;
-  max-width: 440px;
+  max-width: 400px;
   box-shadow: var(--shadow);
 }
 
+.header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
 h1 {
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .subtitle {
   color: var(--text-muted);
-  font-size: 1rem;
-  margin-bottom: 28px;
+  font-size: 0.9rem;
 }
 
 .input-section {
-  margin-bottom: 28px;
+  margin-bottom: 24px;
 }
 
 .input-group {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .input-group label {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 input[type="number"] {
   width: 100%;
-  padding: 16px;
+  padding: 14px 16px;
   background: var(--bg);
   border: 2px solid transparent;
   border-radius: 10px;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
   outline: none;
+  user-select: text;
 }
 
 input[type="number"]:focus {
   border-color: var(--accent);
   background: var(--surface);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type="number"]::placeholder {
@@ -113,31 +128,33 @@ input[type="number"]::placeholder {
 
 .segmented-option {
   flex: 1;
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 8px;
   background: transparent;
   color: var(--text-secondary);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   font-family: inherit;
+  transition: all 0.15s ease;
 }
 
 .segmented-option.active {
   background: var(--surface);
   color: var(--accent);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
 .segmented-option:hover:not(.active) {
   color: var(--text-primary);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .results {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .result-card {
@@ -145,12 +162,14 @@ input[type="number"]::placeholder {
   border-radius: 12px;
   overflow: hidden;
   background: var(--bg);
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .result-accent {
-  width: 5px;
+  width: 6px;
   flex-shrink: 0;
   background: var(--neutral);
+  transition: background 0.3s ease;
 }
 
 .result-body {
@@ -158,17 +177,17 @@ input[type="number"]::placeholder {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
+  padding: 14px 18px;
 }
 
 .result-label {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: var(--text-secondary);
 }
 
 .result-value {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
