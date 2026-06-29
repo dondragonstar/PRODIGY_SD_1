@@ -5,7 +5,9 @@
   "identifier": "com.prodigy.tempconverter",
   "build": {
     "frontendDist": "../src",
-    "devUrl": "http://localhost:5173"
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "python3 -m http.server 5173 --directory ../src",
+    "beforeBuildCommand": ""
   },
   "app": {
     "windows": [
