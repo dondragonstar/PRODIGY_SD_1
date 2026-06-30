@@ -6,7 +6,7 @@
   "build": {
     "frontendDist": "../src",
     "devUrl": "http://localhost:5173",
-    "beforeDevCommand": "python3 -m http.server 5173 --directory src",
+    "beforeDevCommand": "python3 -c \"import http.server, mimetypes, os; os.chdir('src'); mimetypes.init(); mimetypes.add_type('text/css', '.css'); mimetypes.add_type('application/javascript', '.js'); http.server.test(HandlerClass=http.server.SimpleHTTPRequestHandler, port=5173)\"",
     "beforeBuildCommand": ""
   },
   "app": {
